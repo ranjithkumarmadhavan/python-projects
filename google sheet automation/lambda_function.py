@@ -13,21 +13,28 @@ client = gspread.authorize(creds)
 slots_sheet = client.open("Daily log sheet").worksheet("logs")
 
 def lambda_handler(event,context):
+    # get all records
     data = slots_sheet.get_all_records()
     print(data)
 
+    # get row 2 record
     row = slots_sheet.row_values(2)
     print(row)
+
+    # get column 2 records
     col = slots_sheet.col_values(2)
     print(col)
+
+    # get 1st row 2nd column value
     cell = slots_sheet.cell(1,2).value
     print(cell)
-    currentDate = str(datetime.utcnow().date())
-    print(currentDate)
 
+    # insert a record at the 3rd row
+    currentDate = str(datetime.utcnow().date())
     # insert_row = [currentDate,1,"learnt to access google sheets using python"]
     # slots_sheet.insert_row(insert_row,3)
 
+    # delete the record at the 3rd row
     # slots_sheet.delete_rows(3)
 
     return data
