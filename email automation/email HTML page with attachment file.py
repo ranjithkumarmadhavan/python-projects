@@ -1,5 +1,6 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
 from email.mime.text import MIMEText
 import os
 
@@ -10,9 +11,17 @@ message['From'] = from_address
 message['To'] = " ,".join(to_address)
 message['subject'] = 'Hello from SMTP'
 
-body = "Hello from Python code"
+with open('shoefeature.html') as file:
+    htmlBody = file.read()
+message.attach(MIMEText(htmlBody,'html'))
 
-message.attach(MIMEText(body,'plain'))
+# adding attachment to email
+attachmentFileName = 'readme.txt'
+with open(attachmentFileName) as file:
+    attachmentFile = file.read()
+attachment = MIMEApplication(attachmentFile)
+attachment.add_header('Content-Disposition', 'attachment; filename={}'.format(attachmentFileName))
+message.attach(attachment)
 
 email = os.environ['EMAIL']
 password = os.environ['PASSWORD']
