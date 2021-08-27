@@ -8,10 +8,10 @@ SCOPES = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/au
 SERVICE_ACCOUNT_FILE = "creds.json"
 
 credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-delegated_credentials = credentials.with_subject('support@luxliving.co')
+delegated_credentials = credentials.with_subject('email@domain_name.com')
 client = gspread.authorize(delegated_credentials)
 
-slots_sheet = client.open("Alexa Lux Living Skill")
+slots_sheet = client.open("sheet name")
 slots_sheet = slots_sheet.worksheet("Sheet1")
 
 # get all records
